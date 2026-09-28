@@ -1,0 +1,87 @@
+{
+  "final_rows": 702,
+  "positive_samples": 351,
+  "background_samples": 351,
+  "positive_to_background_ratio": "351:351",
+  "duplicate_event_ids": 0,
+  "missing_coordinates": 0,
+  "invalid_coordinates": 0,
+  "missing_timestamps": 0,
+  "state_counts": {
+    "Arunachal Pradesh": 90,
+    "Assam": 164,
+    "Manipur": 112,
+    "Meghalaya": 58,
+    "Mizoram": 54,
+    "Nagaland": 156,
+    "Sikkim": 62,
+    "Tripura": 6
+  },
+  "date_min": "2007-05-23 00:00:00+00:00",
+  "date_max": "2016-10-15 00:00:00+00:00",
+  "feature_stats": {
+    "rainfall_1h": {
+      "count": 702,
+      "missing": 0,
+      "invalid": 0,
+      "min": 0.0,
+      "max": 12.71,
+      "median": 0.3
+    },
+    "rainfall_24h": {
+      "count": 702,
+      "missing": 0,
+      "invalid": 0,
+      "min": 0.0,
+      "max": 151.48,
+      "median": 10.79
+    },
+    "rainfall_7d": {
+      "count": 702,
+      "missing": 0,
+      "invalid": 0,
+      "min": 0.0,
+      "max": 447.82,
+      "median": 80.97
+    },
+    "elevation": {
+      "count": 656,
+      "missing": 46,
+      "invalid": 0,
+      "min": 7.0978,
+      "max": 6132.0234,
+      "median": 746.15815
+    },
+    "slope": {
+      "count": 656,
+      "missing": 46,
+      "invalid": 0,
+      "min": 0.0,
+      "max": 51.6955,
+      "median": 17.417
+    },
+    "aspect": {
+      "count": 656,
+      "missing": 46,
+      "invalid": 0,
+      "min": 0.0,
+      "max": 358.8714,
+      "median": 186.00754999999998
+    },
+    "soil_moisture": {
+      "count": 702,
+      "missing": 0,
+      "invalid": 0,
+      "min": 0.26,
+      "max": 1.0,
+      "median": 0.88
+    }
+  },
+  "sources_used": {
+    "rainfall": "NASA POWER hourly PRECTOTCORR (MERRA-2 fallback)",
+    "terrain": "Copernicus DEM GLO-30 Public 2021 release, slope/aspect derived locally",
+    "soil_moisture": "NASA POWER daily GWETTOP (MERRA-2 surface soil wetness fallback, not SMAP volumetric soil moisture)",
+    "background_boundaries": "GADM v4.1 India ADM1 GeoJSON"
+  },
+  "readiness": "NOT READY FOR XGBOOST: one terrain sample is missing and the soil feature is a coarse surface-wetness proxy rather than SMAP volumetric soil moisture; validate proxy suitability before model training"
+}

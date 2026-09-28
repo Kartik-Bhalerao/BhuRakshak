@@ -1,0 +1,13 @@
+# Core (available in the authoring sandbox; the pipeline runs with these + the interim stand-in)
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+joblib>=1.3
+
+# REQUIRED for the intended production stack. NOT installable in the authoring sandbox (no network),
+# so the XGBoost / shap.TreeExplainer code paths have NOT been executed there. Install, then re-run
+# evaluation/run_experiments.py and models/train.py to regenerate every artifact with real XGBoost.
+xgboost>=2.0
+shap>=0.44
+
+pytest>=7.4

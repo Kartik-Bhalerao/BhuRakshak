@@ -1,0 +1,186 @@
+{
+  "model_version": "bhurakshak-risk-hgb-standin-e2cc-20260928-6e54a80e",
+  "backend": "sklearn.ensemble.HistGradientBoostingClassifier (INTERIM STAND-IN \u2014 NOT XGBoost)",
+  "is_xgboost": false,
+  "hyperparameters": {
+    "max_iter": 200,
+    "max_depth": 3,
+    "learning_rate": 0.05,
+    "min_samples_leaf": 20,
+    "l2_regularization": 5.0,
+    "early_stopping": false,
+    "random_state": 42
+  },
+  "hyperparameters_tuned": false,
+  "trained_at_utc": "2026-09-28T03:54:35.432010+00:00",
+  "python": "3.12.3",
+  "training_data": {
+    "file": "bhuRakshak_final_ml_dataset.csv",
+    "sha256_8": "6e54a80e",
+    "verification": {
+      "n_rows": 702,
+      "n_positive": 351,
+      "n_background": 351,
+      "duplicate_event_ids": 0,
+      "missing_by_feature": {
+        "rainfall_1h": 0,
+        "rainfall_24h": 0,
+        "rainfall_7d": 0,
+        "elevation": 46,
+        "slope": 46,
+        "aspect": 46,
+        "soil_moisture": 0
+      },
+      "terrain_missing_rows": 46,
+      "terrain_missing_by_class": {
+        "0": 45,
+        "1": 1
+      },
+      "lat_range": [
+        22.0,
+        28.9986
+      ],
+      "lon_range": [
+        88.05,
+        96.9262
+      ],
+      "timestamp_range": [
+        "2007-05-23 00:00:00+00:00",
+        "2016-10-15 00:00:00+00:00"
+      ],
+      "sample_type_counts": {
+        "confirmed_reported_event": 351,
+        "background_sample": 351
+      },
+      "states": {
+        "Assam": 164,
+        "Nagaland": 156,
+        "Manipur": 112,
+        "Arunachal Pradesh": 90,
+        "Sikkim": 62,
+        "Meghalaya": 58,
+        "Mizoram": 54,
+        "Tripura": 6
+      }
+    }
+  },
+  "final_model": {
+    "variant": "E2_complete_case",
+    "features": [
+      "rainfall_1h",
+      "rainfall_24h",
+      "rainfall_7d",
+      "elevation",
+      "slope",
+      "aspect",
+      "soil_moisture"
+    ],
+    "n_train_rows": 656,
+    "n_positive": 350,
+    "n_background": 306
+  },
+  "fallback_model": {
+    "variant": "E3_no_terrain",
+    "features": [
+      "rainfall_1h",
+      "rainfall_24h",
+      "rainfall_7d",
+      "soil_moisture"
+    ],
+    "n_train_rows": 702,
+    "note": "Only used with allow_no_terrain_fallback=True; near-chance skill in validation."
+  },
+  "selection_rationale": "E2 chosen for deployment because E1 (native NaN) learned terrain-missing => background (45/46 missing rows are background by construction); see experiments.json.",
+  "feature_notes": {
+    "soil_moisture": "NASA POWER/MERRA-2 GWETTOP surface-soil-wetness proxy, NOT SMAP volumetric soil moisture",
+    "rainfall": "NASA POWER hourly PRECTOTCORR (MERRA-2 reanalysis) summed over windows ending strictly before T; not IMERG",
+    "terrain": "Copernicus GLO-30 DSM; slope/aspect derived locally (Horn 3x3)"
+  },
+  "label_semantics": "1 = reported landslide (NASA GLC); 0 = controlled background sample (>=20 km from any positive), NOT confirmed absence",
+  "probability_semantics": "Model trained on a 1:1 case/background design. Output probability is a relative score under that design, NOT the real-world probability that a landslide occurs.",
+  "risk_thresholds": {
+    "bands": [
+      [
+        "Low",
+        0,
+        30
+      ],
+      [
+        "Medium",
+        30,
+        60
+      ],
+      [
+        "High",
+        60,
+        80
+      ],
+      [
+        "Critical",
+        80,
+        100
+      ]
+    ],
+    "status": "application defaults; NOT scientifically validated"
+  },
+  "global_mean_abs_shap_train_subset_logodds": {
+    "elevation": 0.6251403568582029,
+    "rainfall_7d": 0.3124467227339117,
+    "slope": 0.2415144714581607,
+    "rainfall_1h": 0.21647914915966404,
+    "soil_moisture": 0.17536553029069077,
+    "rainfall_24h": 0.14197343209708632,
+    "aspect": 0.05618503733478352
+  },
+  "oof_calibration_spatial_cv_E2": {
+    "reliability_bins": [
+      {
+        "bin": [
+          0.0,
+          0.2
+        ],
+        "n": 14,
+        "mean_predicted": 0.15707708635881049,
+        "observed_positive_rate": 0.2857142857142857
+      },
+      {
+        "bin": [
+          0.2,
+          0.4
+        ],
+        "n": 118,
+        "mean_predicted": 0.321209643377598,
+        "observed_positive_rate": 0.4406779661016949
+      },
+      {
+        "bin": [
+          0.4,
+          0.6
+        ],
+        "n": 232,
+        "mean_predicted": 0.5072474854203106,
+        "observed_positive_rate": 0.5301724137931034
+      },
+      {
+        "bin": [
+          0.6,
+          0.8
+        ],
+        "n": 222,
+        "mean_predicted": 0.6955668720585797,
+        "observed_positive_rate": 0.5585585585585585
+      },
+      {
+        "bin": [
+          0.8,
+          1.0
+        ],
+        "n": 70,
+        "mean_predicted": 0.8577734231677759,
+        "observed_positive_rate": 0.6714285714285714
+      }
+    ],
+    "brier": 0.2558371097056022
+  },
+  "validation_summary_source": "experiments.json"
+}
