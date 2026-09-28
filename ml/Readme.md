@@ -1,0 +1,2 @@
+# BhuRakshak AI & Risk Fusion Module
+This directory is designated for the geospatial risk-fusion engine, spatial intersection scripts, and deterministic threshold evaluation models. Active implementation rolling out for deployment.
